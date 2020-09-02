@@ -42,32 +42,23 @@ function handleInput(input) {
   
   //######################################################################## dont mess with above code
   
-  var dataset = [];
-  DataGenerator();
-  
-  function isUniName(data){
-    return data.entities.name == "Uni_Name";
+    var dataset = [];
+    DataGenerator();
+    const options = {
+      includeScore:true
+     }
+
+//Data export from csv file
+    function DataGenerator(){
+      d3.csv("Cdata.csv").then(function(Data){
+        for(var i = 0;i<Data.length;i++){
+          dataset[i] = [Data[i].College,Data[i].Acronym,Data[i].Type,Data[i].Acc_Rate,Data[i].Fee,Data[i].international,Data[i].out_of_state,Data[i].in_state,Data[i].Students,Data[i].Sem_Quarter,Data[i].Min_GPA,Data[i].RANK,Data[i].Location,Data[i].SAT,Data[i].AVG_SAT,Data[i].ACT,Data[i].AVG_ACT,Data[i].LOR,Data[i].App_Due_Date];
+        }
+    });
   }
-  
-  
-  
-  function UniType(data){
-    for(var i = 0;i<dataset.length;i++){
-      if(extractUniName(data) == dataset[i][0]){
-        setReply(`${dataset[i][0]} is a ${dataset[i][2]}`);
-      }
-    }
-  }
-  
-  function findUni(uni){
-      for(var i = 0;i<dataset.length;i++){
-        if(uni == dataset[i][0]){
-          return true;}
-        console.log(`${dataset[i][0]}`);
-      }
-    return false;
-  }
-  
+
+
+//main function:
   function handleWitReply(data) {
     if (data.intents.length == 0) {
       NotInList(data);
@@ -75,7 +66,14 @@ function handleInput(input) {
     }
     switch (data.intents[0].name) {
       case "Query":
-        handleCollegeQuery(data);
+        if(search_entity(data,"collegetype")){
+          UniType(data);
+        }
+        else if(search_entity(data,"metric")){
+          handleMetric(data);
+        }
+        else{
+        handleCollegeQuery(data);}
         break
       case "Greetings":
         ReplyToGreetings(data);
@@ -84,32 +82,57 @@ function handleInput(input) {
         NotInList(data);
     }
   }
-  
-  
-  function NotInList(data) {
-    if(isUniName(data)){
-      setReply(`Currently we only have the following universities in our dataset`);
+
+//gives whether ivy/private/public {fuzzystring incorporated}
+  function UniType(data){
+    // console.log('trigged UniType');  debug
+    let present = false;
+    const name = extractUniName(data);
+    if(name == 'false'){
+      setReply(`Not in list`);
     }
-    else{
-      setReply(`I can't comprehend what you just said.`)
+    const res = GiveEntryFromName(name);
+    if(res!=-1){
+      setReply(`${name} is ${res[2]} type`);
+    }
+    
+  }
+  
+  function handleMetric(data){
+    const str = data.entities["metric:metric"][0].value;
+    var res = str.split(" "); 
+    const name = extractUniName(data);
+    if(name == 'false'){
+      setReply(`Not in list`);
+    }
+    const vals = GiveEntryFromName(name);
+    for(var i =0;i<res.length;i++){
+      let command = res[i].toLowerCase();
+      if(command == 'gpa'){
+        setReply(`${name} requires around ${vals[10]}`);
+        break;
+      }
+      if(command == 'acceptance'){
+        setReply(`${name} takes in about ${vals[3]}% people who apply`);
+        break;
+      }
+      if(command == "average_act"){
+        setReply(`For ${name}, the Average ACT score is ${vals[17]}`);
+        break;
+      }
+      if(command == "Average_sat"){
+        setReply(`For ${name}, the Average SAT score is${vals[15]}`);
+        break;
+      }
+      if(command == "Sat_required" ){
+        setReply(`For ${name}, SAT is ${vals[13]}`);
+      }
     }
   }
-  
-  function DataGenerator(){
-      d3.csv("Cdata.csv").then(function(Data){
-        for(var i = 0;i<Data.length;i++){
-          dataset[i] = [Data[i].College,Data[i].Acronym,Data[i].Type,Data[i].Acc_Rate,Data[i].Fee,Data[i].international,Data[i].out_of_state,Data[i].in_state,Data[i].Students,Data[i].Sem_Quarter,Data[i].Min_GPA,Data[i].RANK,Data[i].Location,Data[i].SAT,Data[i].AVG_SAT,Data[i].ACT,Data[i].AVG_ACT,Data[i].LOR,Data[i].App_Due_Date];
-        }
-    });
-  }
-  
-  function ReplyToGreetings(data){
-    setReply(`Hello! How can I help you today?`);
-  }
-  
-  
+
   function handleCollegeQuery(data){
-    var Uni_Name = [];
+    // console.log('triggered handleCollegeQuery'); debug
+    const Uni_Name = "";
     try{
       Uni_Name = extractUniName(data);
       }catch(err){
@@ -118,34 +141,65 @@ function handleInput(input) {
     if(Uni_Name.length!=1){
       return NotInList();
     }
-    var invalid = false;
-    Uni_Name.forEach(function(uni){
-      if(!findUni(uni)){
-        
-        console.log(`Not in the list = ${uni}`);
-        setReply(`Currently we dont have ${uni} . We're working on adding more universities to the list.`);
-        invalid = true;
-      }
-    });
+  }
   
-    if (invalid) {
-      return;
+  function ReplyToGreetings(data){
+    // console.log('triggered reply2greetings'); debug
+    setReply(`Hello! How can I help you today?`);
+  }
+  
+
+
+//utility functions
+
+function getCol(matrix, col){
+   var column = [];
+   for(var i=0; i<matrix.length; i++){
+      column.push(matrix[i][col]);
+   }
+   return column;
+}
+//checks whether the given key matches the entity
+function search_entity(data,key){
+  const search_k = key+':'+key;
+  // console.log('in func search entity'); debug
+  // console.log(search_k);
+  for(const entity in data.entities){
+    if(entity == search_k){
+      return true;
+    }
+  }
+  return false;
+}
+
+  function extractUniName(data){
+    const uni = data.entities["Uni_Name:Uni_Name"][0].value;
+    const fuse = new Fuse(getCol(dataset,0),options);
+    const result = fuse.search(uni);
+    // console.log(result);
+    if(result[0].score<0.6){
+      return result[0].item;
     }
     else{
-    setReply(`We got your query and working to get the results...`);
+      return 'false';
     }
+    // var ents = data.entities["Uni_Name:Uni_Name"];
+    // ents.forEach(function(entity){
+    //   res.push(entity.value);
+    // });
+    // return res;
   }
   
-  
-  function extractUniName(data){
-    var res = [];
-    var ents = data.entities["Uni_Name:Uni_Name"];
-    ents.forEach(function(entity){
-      res.push(entity.value);
-    });
-    return res;
+  function GiveEntryFromName(name){
+    for(var i =0;i<dataset.length;i++){
+      if(dataset[i][0] == name){
+        return dataset[i];
+      }
+    }
+    return -1;
   }
-  
+
+
   function prettyList(data) {
     if (data.length > 1) {
       data.push(data[data.length - 1]);
@@ -157,4 +211,17 @@ function handleInput(input) {
     });
     return res.trim();
   }
+  function NotInList(data) {
+    return 0;
+      //todo
+  }
   
+  
+// function titleCase(string) {
+//     var sentence = string.toLowerCase().split(" ");
+//     for(var i = 0; i< sentence.length; i++){
+//        sentence[i] = sentence[i][0].toUpperCase() + sentence[i].slice(1);
+//     }
+//  document.write(sentence.join(" "));
+//  return sentence;
+//  }
