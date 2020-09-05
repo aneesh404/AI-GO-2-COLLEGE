@@ -5,33 +5,39 @@
     <meta http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width , initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge"> 
-    <title>AIGO2COLLEGE</title>
+    <div class = "image_top">
+    <!-- <img src="AIGO2COLLEGE.png" alt="Logo:Dog wearing a graduation hat"> -->
+    <header>
+    <h1>AIGO2COLLEGE</h1>
+    </header>
+    </div>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@1,600&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/fuse.js/dist/fuse.js"></script>
     <script src = "https://cdnjs.cloudflare.com/ajax/libs/d3/6.1.0/d3.min.js"></script>
 
     <script src="/script.js" defer></script>
-    
-
   </head>
   <body>
-    <header><h1>{A}IGO2COLLEGE</h1></header>
 
     <main>
       <button id="button">Start listening</button>
       <form name="myForm" method="post" id="search-form">
-        <input id="searchio" name="input" type="text" placeholder="Search..." autocomplete="off" autofocus>
+        <input id="searchio" name="input" type="text" placeholder="Type Here..." autocomplete="off" autofocus>
         <input type="button" onclick="handleInput()" value="➡️" />
       </form>
       <p id="message" hidden aria-hidden="true">
         Your browser doesn't support Speech Recognition currently. Please try using chrome based browser :)
       </p>
     </main>
-    <h3>My App's Reply</h3>
+    <!-- <h3>My App's Reply</h3> -->
     <p id="reply"></p>
 
+    <!-- <h3>Data from Wit.ai</h3> -->
+    <p id="data"></p>
+    
     <footer>
-      <p>Built with ❤️ using <a href="https://wit.ai/">Wit.ai</a></p>
+      <p>Built by Aneesh using <a href="https://wit.ai/">Wit.ai</a></p>
     </footer>
   </body>
 </html>

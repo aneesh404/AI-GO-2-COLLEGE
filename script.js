@@ -56,9 +56,9 @@ function handleInput(input) {
   }
 
   setReply("...");
-  // setJsonData("...");
+  setJsonData("...");
   sendRequestToWit(input).then(data => {
-    // setJsonData(data);
+    setJsonData(data);
     handleWitReply(data);
   });
 }
@@ -67,10 +67,10 @@ function setReply(str) {
   document.getElementById("reply").innerHTML = str;
 }
 
-// function setJsonData(data) {
-//   document.getElementById("data").innerHTML =
-//     "<pre>" + JSON.stringify(data, null, 4) + "</pre>";
-// }
+function setJsonData(data) {
+  document.getElementById("data").innerHTML =
+    "<pre>" + JSON.stringify(data, null, 4) + "</pre>";
+}
 
 // Wit.ai connections
 
@@ -111,6 +111,7 @@ function handleWitReply(data) {
     NotInList(data);
     return;
   }
+  console.log(data.traits[0]);
   switch (data.intents[0].name) {
     case "Query":
       if(search_entity(data,"collegetype")){
@@ -145,7 +146,6 @@ function UniType(data){
   if(res!=-1){
     setReply(`${name} is ${res[2]} type`);
   }
-  
 }
 
 function handleMetric(data){
@@ -272,11 +272,6 @@ function extractUniName(data){
   else{
     return 'false';
   }
-  // var ents = data.entities["Uni_Name:Uni_Name"];
-  // ents.forEach(function(entity){
-  //   res.push(entity.value);
-  // });
-  // return res;
 }
 
 function GiveEntryFromName(name){
@@ -301,6 +296,6 @@ function prettyList(data) {
   return res.trim();
 }
 function NotInList(data) {
-  return 0;
+  setReply(`Sorry, we're currently under construction`);
     //todo
 }
