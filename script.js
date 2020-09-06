@@ -15,13 +15,13 @@ window.addEventListener("DOMContentLoaded", () => {
     const stop = () => {
       main.classList.remove("speaking");
       recognition.stop();
-      button.textContent = "Start listening";
+      button.textContent = "Start";
     };
 
     const start = () => {
-      main.classList.add("speaking");
+      main.classList.add("speaking"); 
       recognition.start();
-      button.textContent = "Stop listening";
+      button.textContent = "Stop";
     };
     
     const onResult = event => {
@@ -55,7 +55,7 @@ function handleInput(input) {
     return;
   }
 
-  setReply("...");
+  // setReply("...");
   setJsonData("...");
   sendRequestToWit(input).then(data => {
     setJsonData(data);
@@ -65,6 +65,8 @@ function handleInput(input) {
 
 function setReply(str) {
   document.getElementById("reply").innerHTML = str;
+  let utterance = new SpeechSynthesisUtterance(str);
+  speechSynthesis.speak(utterance);
 }
 
 function setJsonData(data) {
@@ -78,7 +80,7 @@ function sendRequestToWit(data) {
   const url = "https://api.wit.ai/message?q=";
   const params = {
     headers: {
-      Authorization: "Bearer WT2HXX7H7SMLTXPPRV3MUSMTDCYTY6PG"
+      Authorization: "Bearer JL3K6R6O42VYR5SXNRYFFBXYR2NSOY4R"
     }
   };
 
@@ -94,6 +96,9 @@ function sendRequestToWit(data) {
   const options = {
     includeScore:true
    }
+  const info = document.querySelector(".info");
+  var askables = ["Is <University Name> an ivy league?","Is sat required for <University Name>? ","when is the application due for <University Name>?","what GPA do I need to go to <University Name>?","Average SAT score for <University Name>?"];
+  // info.textContent = 'Ask me something like: '+askables[Math.floor(Math.random() * (askables.length))];
 
 //Data export from csv file
   function DataGenerator(){
@@ -144,7 +149,7 @@ function UniType(data){
   }
   const res = GiveEntryFromName(name);
   if(res!=-1){
-    setReply(`${name} is ${res[2]} type`);
+    setReply(`${name} is ${res[2]} University`);
   }
 }
 
@@ -158,10 +163,9 @@ function handleMetric(data){
     return;
   }
   const vals = GiveEntryFromName(name);
-  // for(var i =0;i<res.length;i++){
   let command = res.toLowerCase();
   console.log(command);
-  if(command == 'gpa required'){
+  if(command == 'average_gpa'){
     setReply(`${name} requires around ${vals[10]} GPA`);
     
   }
@@ -176,11 +180,11 @@ function handleMetric(data){
   else if(command == "average_sat"){
     setReply(`For ${name}, the Average SAT score is ${vals[14]}`);
   }
-  else if(command == "sat required" ){
+  else if(command == "sat_required"){
     setReply(`For ${name}, SAT is ${vals[13]}`);
   }
   else if(command == "act required" ){
-    setReply(`For ${name}, SAT is ${vals[15]}`);
+    setReply(`For ${name}, ACT is ${vals[15]}`);
   }
 }
 function handleFee(data){
@@ -218,16 +222,31 @@ function handleCollegeQuery(data){
   else if(command == 'NumberStudents'){
     setReply(`The ${name} has about ${vals[8]} students.`)
   }
-  else if(command == 'Semester'){
+  else if(command == 'Term'){
     setReply(`${name} has ${vals[9]}`);
   }
   else if(command == 'Rank'){
-    setReply(`${name} is ranked ${vals[11]} in the global ranking.`);
+    setReply(`${name} is ranked ${vals[11]} around the world.`);
   }
   else if(command == 'Location'){
     setReply(`${name} is located in ${vals[12]}`);
   }
 }
+
+// function ShowTopN(n,category){
+//   if(category == "colleges"){
+//     for(var i =0;i<n && i<=dataset.length;i++){
+//       setReply(dataset[i][0]);
+//     }
+//   }
+//   else{
+//     var count = 0,i;
+//     while(count<n && i<dataset.length){
+//       i++;
+//     }
+//   }
+// }
+
 
 function ReplyToGreetings(data){
   // console.log('triggered reply2greetings'); debug
@@ -282,7 +301,6 @@ function GiveEntryFromName(name){
   }
   return -1;
 }
-
 
 function prettyList(data) {
   if (data.length > 1) {

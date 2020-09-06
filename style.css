@@ -1,6 +1,10 @@
 * {
   box-sizing: border-box;
 }
+.info{
+  padding-top: 10px;
+}
+
 html,
 body {
   /* background-image:url("/background.jpeg"); */
@@ -10,17 +14,17 @@ body {
   padding: 0;
 }
 img{
-  max-width:100%;
+  max-width:60%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-height:30%;
+  /* align-content: center; */
+  max-width:auto;
   height:auto;
+  padding: 0.3em 0.3em 0.3em 0.3em;
 }
-.image_top {
-  /* width: 120px; */
-  min-height: 120px;
-  max-height: auto;
-  float: left;
-  margin: 3px;
-  padding: 3px;
-}
+
 body {
   color: #0d122b;
   display: flex;
@@ -28,20 +32,22 @@ body {
   padding-left: 1em;
   padding-right: 1em;
 }
-h1 {
-  font-family: 'IBM Plex Sans', sans-serif;
-  text-align: center;
-  display: block;
-  font-size: 5em;
-  margin-top: 0.67em;
-  margin-bottom: 0 em;
-  margin-left: 0;
-  margin-right: 0;
-  font-weight: bold;
+
+.top{
+  text-align:justify;
+  line-height:5em;
+}
+.top:after{
+    content: '';
+    display: inline-block;
+    width: 100%;
+  }
 }
 header {
   border-bottom: 1px solid #0d122b;
-  margin-bottom: 2em;
+  margin-bottom: 1em;
+  height: 30%;
+
 }
 main {
   flex-grow: 2;
@@ -53,13 +59,13 @@ main {
   padding-top: 4em;
   text-align: center;
 }
-@keyframes bg-pulse {
+/* @keyframes bg-pulse {
   0% {
     background-color: #fff;
   }
 
   50% {
-    background-color: #c7ecee;
+    background-color: #90e5fa;
   }
 
   100% {
@@ -67,9 +73,9 @@ main {
   }
 }
 main.speaking {
-  animation: bg-pulse 1.5s alternate ease-in-out infinite;
-}
-#result {
+  animation: bg-pulse 1s alternate ease-in-out infinite;
+} */
+/* #result {
   color: #666;
   font-style: italic;
   text-align: center;
@@ -77,43 +83,92 @@ main.speaking {
 #result .final {
   color: #0d122b;
   font-style: normal;
-}
+} */
 
 #reply{
   text-align:center;
 }
-
-
-button {
-  font-size: 18px;
-  font-weight: 200;
-  padding: 1em;
-  width: 200px;
-  background: transparent;
-  border: 4px solid rgb(47, 154, 242);
-  border-radius: 30px;
-  transition: all 0.4s ease 0s;
+.sub_button{
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background-color: transparent;
+  outline: none;
+  border: none;
+  width: 3rem;
+  /* text-align: center; */
+  font-size: 2rem;
   cursor: pointer;
-  color: rgb(47, 154, 242);
-  margin-bottom: 4em;
+  color: #333;
 }
+
+.input-bar {
+  padding-top: 15px;
+  display: table;
+  width: 100%;
+}
+
+.input-bar-item {
+  display: table-cell;
+}
+
+.input-bar-item > button {
+  padding-left:15px;
+  margin-left: 5px;
+}
+
+.btn-circle {
+  width: 80px;
+  height: 80px;
+  padding: 6px 0px;
+  border-radius: 15px;
+  text-align: center;
+  /* font-size: 12px; */
+  line-height: 1.42857;
+}
+
+.btn-circle.btn-xl {
+  width: 80px;
+  height: 80px;
+  padding: 5px 5px;
+  border-radius: 50px;
+  font-size: 24px;
+  line-height: 1.33;
+}
+
+/* #button {
+  position:relative;
+  height: 200px;
+  width: 200px;
+  border-radius: 50%;
+  font-size: 25px;
+  padding: 0.3em;
+  cursor: pointer;
+  margin-bottom: 1em;
+  font-weight: bold;
+  color: #FFF;
+  background-image: -webkit-linear-gradient(45deg, #709dff 0%, #b0c9ff 100%);
+  background-image: linear-gradient(45deg, #709dff 0%, #b0c9ff 100%);
+  transition: .4s;
+  display: inline-block;
+  /* padding: 0.5em 1em; } */
 #search-form {
   min-width: 50px;
-  width: 50%;
+  /* width: 50%; */
   margin: 0 auto;
   position: relative;
 }
-#search-form input {
-  width: 100%;
+/* #search-form input {
+   width: 100%; 
   font-size: 1.5rem;
-  padding: 10px 15px;
+  padding: 3px 3px;
   border: 2px solid #ccc;
-  border-radius: 2px;
-}
+  border-radius: 10px; */
 button:hover,
 button:focus {
-  background:linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(37,72,112,1) 23%, rgba(40,78,119,1) 24%, rgba(62,124,167,1) 41%, rgba(61,125,168,1) 50%, rgba(53,137,180,1) 62%, rgba(42,153,196,1) 75%, rgba(0,212,255,1) 100%);
-  color: #fff;
+  background-image: -webkit-linear-gradient(45deg, #709dff 50%, #b0c9ff 100%);
+  background-image: linear-gradient(45deg, #709dff 50%, #b0c9ff 100%);
 }
 
 a {
@@ -127,3 +182,5 @@ footer {
   border-top: 1px solid #0d122b;
   text-align: center;
 }
+
+
