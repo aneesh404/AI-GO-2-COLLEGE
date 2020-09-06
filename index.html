@@ -3,62 +3,75 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible">
-    <meta name="viewport" content="width=device-width , initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge"> 
     <header>
       <div class = "top">
-        <img src="Title.jpg" alt="Logo:Dog wearing a graduation hat">
-    </div>
+        <h1>(A)IGO2COLLEGE</h1>
+      </div>
     </header>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href= "https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"> 
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@1,600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lora&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://cdn.jsdelivr.net/npm/fuse.js/dist/fuse.js"></script>
     <script src = "https://cdnjs.cloudflare.com/ajax/libs/d3/6.1.0/d3.min.js"></script>
-    <script src= "https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"> </script> 
     <script src="/script.js" defer></script>
   </head>
   <body>
     <main>
-      <div class="container">
-        <div class="row">
-          <div class="col-4">  
-            <button class="btn btn-info btn-circle btn-xl" id="button">
-              <i class="fa fa-microphone" style="font-size:25px"></i>
-            </button>
-          </div>
-          <div class="col-8">
-            <div class="input-bar">
-              <div class="input-bar-item">
-                <!-- <div class="input-group" name="input-group"> -->
-                <form  name="myForm" method="post" id="search-form">
-                  <input class="form-control" id="searchio" name="input" type="text" placeholder="Type Here..." autocomplete="off" autofocus>
-                  <button class="btn btn-info sub_button" type="button" onclick="handleInput()">
-                    <i class="fa fa-angle-double-right" style="font-size:20px"></i>
-                  </button>
-                </form>
-                <!-- </div> -->
+      <div class="container-fluid">
+        <div class="row" style="height:70vh">
+          <div class="col-7">
+            <div class="row querybox mt-3">
+              <div class="col-3">  
+                <button class="btn btn-info btn-circle btn-xl" id="button">
+                  <i class="fa fa-microphone" style="font-size:25px"></i>
+                </button>
+              </div>
+              <div class="col-8 mr-1">
+                <div class="input-bar">
+                  <div class="input-bar-item">
+                    <form  name="myForm" method="post" id="search-form">
+                      <input class="form-control" id="searchio" name="input" type="text" placeholder="Type Here..." autocomplete="off" autofocus>
+                      <button class="btn btn-info sub_button" type="button" onclick="handleInput()">
+                        <i class="fa fa-angle-double-right" style="font-size:20px"></i>
+                      </button>
+                    </form>
+                  </div>
+                </div>
+                <p id="message" hidden aria-hidden="true">
+                  Your browser doesn't support Speech Recognition currently. Please try using chrome based browser :)
+                 </p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col info ml-3"></div>
+            </div>
+            <div class="row chat_box mt-5" style="height:20vh">
+              <div class="col-4 mt-4">
+                <img src="avatar_3.png" alt="Avatar" class="avatar image-fluid" id="avatar">
+              </div>
+              <div class="col-6 speech-bubble mr-1 ml-1">
+                <div class="in-middle reply">
+                  <p id="reply"></p>
+                </div>
               </div>
             </div>
           </div>
+          <div class="col-5 history" style="background-color:lightblue">
+            <h2 style="text-decoration:underline">History</h2>
+            <ul class="no_bul" id="list"></ul>
+          </div>
         </div>
       </div>
-      <p class="info"></p>
-
-      <p id="message" hidden aria-hidden="true">
-        Your browser doesn't support Speech Recognition currently. Please try using chrome based browser :)
-      </p>
     </main>
-    <!-- <h3>My App's Reply</h3> -->
-    <p id="reply"></p>
-
-    <h3>Data from Wit.ai</h3>
-    <p id="data"></p>
-    
     <footer>
       <p>Built by Aneesh and Ellie using <a href="https://wit.ai/">Wit.ai</a></p>
     </footer>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
   </body>
 </html>
 
