@@ -15,13 +15,13 @@ window.addEventListener("DOMContentLoaded", () => {
     const stop = () => {
       main.classList.remove("speaking");
       recognition.stop();
-      button.textContent = "Start listening";
+      button.textContent = "Start";
     };
 
     const start = () => {
-      main.classList.add("speaking");
+      main.classList.add("speaking"); 
       recognition.start();
-      button.textContent = "Stop listening";
+      button.textContent = "Stop";
     };
     
     const onResult = event => {
@@ -55,7 +55,7 @@ function handleInput(input) {
     return;
   }
 
-  setReply("...");
+  // setReply("...");
   // setJsonData("...");
   sendRequestToWit(input).then(data => {
     // setJsonData(data);
@@ -65,8 +65,14 @@ function handleInput(input) {
 
 function setReply(str) {
   document.getElementById("reply").innerHTML = str;
+  let utterance = new SpeechSynthesisUtterance(str);
+  speechSynthesis.speak(utterance);
 }
 
+
+// Whoa a life form? I never thought a human will read my code :()
+
+//DEBUG
 // function setJsonData(data) {
 //   document.getElementById("data").innerHTML =
 //     "<pre>" + JSON.stringify(data, null, 4) + "</pre>";
@@ -78,7 +84,7 @@ function sendRequestToWit(data) {
   const url = "https://api.wit.ai/message?q=";
   const params = {
     headers: {
-      Authorization: "Bearer WT2HXX7H7SMLTXPPRV3MUSMTDCYTY6PG"
+      Authorization: "Bearer JL3K6R6O42VYR5SXNRYFFBXYR2NSOY4R"
     }
   };
 
@@ -88,12 +94,19 @@ function sendRequestToWit(data) {
 
 //######################################################################## dont mess with above code
 
+
+  window.onload = choosePic;
+  window.onload = checkCookie;
   var dataset = [];
   var begin = false;
   DataGenerator();
   const options = {
     includeScore:true
    }
+
+  const info = document.querySelector(".info");
+  var askables = ["Is <University Name> an ivy league?","Is sat required for <University Name>? ","when is the application due for <University Name>?","what GPA do I need to go to <University Name>?","Average SAT score for <University Name>?"];
+  info.textContent = 'Ask me something like: '+askables[Math.floor(Math.random() * (askables.length))];
 
 //Data export from csv file
   function DataGenerator(){
@@ -104,6 +117,7 @@ function sendRequestToWit(data) {
   });
 }
 
+//An ode to Free Online blogs and StackOverflow!!! 
 
 //main function:
 function handleWitReply(data) {
@@ -111,6 +125,7 @@ function handleWitReply(data) {
     NotInList(data);
     return;
   }
+  make_history(data.text);
   switch (data.intents[0].name) {
     case "Query":
       if(search_entity(data,"collegetype")){
@@ -143,9 +158,8 @@ function UniType(data){
   }
   const res = GiveEntryFromName(name);
   if(res!=-1){
-    setReply(`${name} is ${res[2]} type`);
+    setReply(`${name} is ${res[2]} University`);
   }
-  
 }
 
 function handleMetric(data){
@@ -158,10 +172,9 @@ function handleMetric(data){
     return;
   }
   const vals = GiveEntryFromName(name);
-  // for(var i =0;i<res.length;i++){
   let command = res.toLowerCase();
-  console.log(command);
-  if(command == 'gpa required'){
+  // console.log(command);
+  if(command == 'average_gpa'){
     setReply(`${name} requires around ${vals[10]} GPA`);
     
   }
@@ -176,22 +189,26 @@ function handleMetric(data){
   else if(command == "average_sat"){
     setReply(`For ${name}, the Average SAT score is ${vals[14]}`);
   }
-  else if(command == "sat required" ){
+  else if(command == "sat_required"){
     setReply(`For ${name}, SAT is ${vals[13]}`);
   }
   else if(command == "act required" ){
-    setReply(`For ${name}, SAT is ${vals[15]}`);
+    setReply(`For ${name}, ACT is ${vals[15]}`);
   }
 }
+
+//Whoa you came till here? thanks dude!
+
+
 function handleFee(data){
   const name = extractUniName(data);
-  console.log("I'm in handleFee");
+  // console.log("I'm in handleFee");
   if(name == 'false'){
     setReply(`Not in list`);  //Todo: write a better exit point
     return;
   }
   const vals = GiveEntryFromName(name);
-  console.log(name,vals);
+  // console.log(name,vals);
   if(vals[4] !=""){
     setReply(`It costs $${vals[4]} to attend ${name}`);
   }
@@ -204,7 +221,7 @@ function handleFee(data){
 }
 
 function handleCollegeQuery(data){
-  console.log('triggered handleCollegeQuery');
+  // console.log('triggered handleCollegeQuery');
   const name = extractUniName(data);
   if(name == 'false'){
     setReply(`Not in list`);  //Todo: write a better exit point
@@ -218,16 +235,17 @@ function handleCollegeQuery(data){
   else if(command == 'NumberStudents'){
     setReply(`The ${name} has about ${vals[8]} students.`)
   }
-  else if(command == 'Semester'){
+  else if(command == 'Term'){
     setReply(`${name} has ${vals[9]}`);
   }
   else if(command == 'Rank'){
-    setReply(`${name} is ranked ${vals[11]} in the global ranking.`);
+    setReply(`${name} is ranked ${vals[11]} around the world.`);
   }
   else if(command == 'Location'){
     setReply(`${name} is located in ${vals[12]}`);
   }
 }
+
 
 function ReplyToGreetings(data){
   // console.log('triggered reply2greetings'); debug
@@ -272,11 +290,6 @@ function extractUniName(data){
   else{
     return 'false';
   }
-  // var ents = data.entities["Uni_Name:Uni_Name"];
-  // ents.forEach(function(entity){
-  //   res.push(entity.value);
-  // });
-  // return res;
 }
 
 function GiveEntryFromName(name){
@@ -288,6 +301,11 @@ function GiveEntryFromName(name){
   return -1;
 }
 
+var myPix = new Array("avatar_1.jpg","avatar_2.png", "avatar_3.png");
+function choosePic(){
+  var randomNum = Math.floor(Math.random() * myPix.length);
+  document.getElementById("avatar").src = myPix[randomNum];
+}
 
 function prettyList(data) {
   if (data.length > 1) {
@@ -300,7 +318,73 @@ function prettyList(data) {
   });
   return res.trim();
 }
+
+//You deserve brownie points :)
+//By yours truely, Aneesh Chawla :D
+
+function setCookie(cname, cvalue, exdays) {
+  var d = new Date();
+  d.setTime(d.getTime() + (exdays*24*60*60*1000));
+  var expires = "expires="+ d.toUTCString();
+  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+function getCookie(cname) {
+  var name = cname + "=";
+  var decodedCookie = decodeURIComponent(document.cookie);
+  var ca = decodedCookie.split(';');
+  for(var i = 0; i <ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+
+function checkCookie() {
+  var username = getCookie("username");
+  if (username != "") {
+    welcomeAgain(username);
+  //  alert("Welcome again " + username);
+  } else {
+    username = prompt("Please enter your name:", "");
+    if (username != "" && username != null) {
+      setCookie("username", username, 365);
+      Introduction(username);
+    }
+  }
+}
+
+function welcomeAgain(username){
+  const msg = "It's nice to see you again "+username+"."+" Lets get back on working on that College Application, shall we?";
+  document.getElementById("reply").innerHTML = msg;
+  let utterance = new SpeechSynthesisUtterance(msg);
+  speechSynthesis.speak(utterance);
+  
+}
+
+function make_history(query) {
+  var ul = document.getElementById("list");
+  var li = document.createElement("li");
+  li.appendChild(document.createTextNode(query));
+  ul.appendChild(li);
+}
+
+
+function Introduction(username){
+  const names = ["Bobby","Brighton","Charlie","Emory","Gale","Harper","Jordan","Nico","Phoenix"];
+  const msg = "Hey There "+username+"! I am "+ names[Math.floor(Math.random() * (names.length))]+" and I'll be assisting you today.";
+  document.getElementById("reply").innerHTML = msg;
+  let utterance = new SpeechSynthesisUtterance(msg);
+  speechSynthesis.speak(utterance);
+}
+
 function NotInList(data) {
-  return 0;
+  setReply(`Sorry, we're currently under construction`);
     //todo
 }
+
