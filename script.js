@@ -1,5 +1,4 @@
 // WebSpeech Configurations
-
 const searchForm = document.querySelector("#search-form");
 const searchFormInput = searchForm.querySelector("input");
 window.addEventListener("DOMContentLoaded", () => {
@@ -46,7 +45,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
 //base HTML connections
 
-//###########################################################dont mess with this part
+//###########################################################                 DONT mess with this part
 
 function handleInput(input) {
   var input = document.forms["myForm"]["input"].value;
@@ -63,10 +62,21 @@ function handleInput(input) {
   });
 }
 
+
+
 function setReply(str) {
   document.getElementById("reply").innerHTML = str;
   let utterance = new SpeechSynthesisUtterance(str);
   speechSynthesis.speak(utterance);
+}
+function ListUniversities(){
+  var ul = document.getElementById("uni_list");
+  var li = document.createElement("li");
+  for(var i=0;i<dataset.length;i++){
+    var li = document.createElement('li');
+    li.appendChild(document.createTextNode(dataset[i][0]));
+    ul.appendChild(li);
+  }
 }
 
 
@@ -95,11 +105,30 @@ function sendRequestToWit(data) {
 //######################################################################## dont mess with above code
 
 
-var myPix = ["Counselors/doggo1.jpg","Counselors/doggo2.jpg", "Counselors/doggo3.jpg"];
+// $("#myinput").keypress(function(event) { 
+//   if (event.keyCode === 13) { 
+//       $("#myButt").click(); 
+//       handleInput();
+//   } 
+// }); 
 
+$(document).ready(function(){
+  $('#myinput').keypress(function(e){
+    if(e.keyCode==13)
+    // $('#myButt').click();
+    handleInput();
+  });
+});
+
+
+
+$("#GFG_Button").click(function() { 
+  alert("Button clicked"); 
+}); 
+
+var myPix = ["Counselors/doggo1.jpg","Counselors/doggo2.jpg", "Counselors/doggo3.jpg"];
 function choosePic(){
   var randomNum = Math.floor(Math.random() * myPix.length);
-  console.log(randomNum)
   document.getElementById("avatar").src = myPix[randomNum];
 }
 window.onload=function(){
@@ -406,57 +435,55 @@ function RunSuggestion1()
 {
     const text =  document.getElementById("b1").textContent;
     searchFormInput.value = text;
-    
+    handleInput(text);       
 }
 function RunSuggestion2() 
 {
     const text =  document.getElementById("b2").textContent;
     searchFormInput.value = text;
-    
+    handleInput(text);    
 }
 function RunSuggestion3() 
 {
     const text =  document.getElementById("b3").textContent;
     searchFormInput.value = text;
-    
+    handleInput(text);    
 }
 function RunSuggestion4() 
 {
     const text =  document.getElementById("b4").textContent;
     searchFormInput.value = text;
-    
+    handleInput(text);    
 }
 function RunSuggestion5() 
 {
     const text =  document.getElementById("b5").textContent;
     searchFormInput.value = text;
-    
+    handleInput(text);        
 }
 function RunSuggestion6() 
 {
     const text =  document.getElementById("b6").textContent;
     searchFormInput.value = text;
-    
+    handleInput(text);    
 }
 function RunSuggestion7() 
 {
     const text =  document.getElementById("b7").textContent;
     searchFormInput.value = text;
-    
+    handleInput(text);    
 }
 function RunSuggestion8() 
 {
     const text =  document.getElementById("b8").textContent;
     searchFormInput.value = text;   
+    handleInput(text);    
 }
 function RunSuggestion9() 
 {
     const text =  document.getElementById("b9").textContent;
     searchFormInput.value = text;
-    // $("#myButt").click();
-    // handleInput();
-
-    
+    handleInput(text);    
 }
 
 function NotInList(data) {

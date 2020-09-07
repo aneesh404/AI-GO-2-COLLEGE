@@ -1,3 +1,4 @@
+![Logo](Title.jpg)
 ### Inspiration
 It's not always easy to find a reliable college guidance counselor. As a result of COVID19, this task has become even more difficult as students shifted to virtual learning. 
 

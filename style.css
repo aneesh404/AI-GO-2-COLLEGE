@@ -1,6 +1,13 @@
 * {
   box-sizing: border-box;
 }
+
+@media (max-width: 480px) {
+  .styleName {
+      display:none;
+  }
+}
+
 .info{
   padding-top: 10px;
   padding-left: 30px;
@@ -9,7 +16,7 @@
 }
 h1{
   font-family: 'Lora', serif !important;
-  font-size:9vh !important;
+  font-size:7vh !important;
   text-align: center !important;
 }
 
@@ -19,6 +26,7 @@ ul.no_bul {
 }
 
 .history{
+  font-family: 'Mulish', sans-serif !important;
   background-color:#ced5d6;
   padding-left:30px;
   text-align:center;
@@ -106,7 +114,7 @@ body {
 header {
   border-bottom: 1px solid #0d122b;
   margin-bottom: 1em;
-  height: 30%;
+  height: 13vh;
 }
 .main {
   flex-grow: 2;
@@ -134,10 +142,10 @@ header {
 }
 
 .input-bar {
-  padding-top: 10px;
+  padding-top: 20px;
   padding-left:15px;
   display: table;
-  width: 100%;
+  width: 110%;
 }
 
 .input-bar-item {
@@ -159,6 +167,11 @@ h3{
   padding-right:10px;
 } */
 
+#reply{
+  font-family: 'Mulish', sans-serif !important;
+  font-size:120%;
+}
+
 .btn-circle {
   /* width: 60px;
   height: 60px; */
@@ -178,6 +191,7 @@ h3{
 }
 
 #search-form {
+  font-family: 'Mulish', sans-serif!important;
   min-width: 50px;
   margin: 0 auto;
   position: relative;
@@ -196,14 +210,13 @@ h3{
 }
 
 footer {
-  border-top: 1px solid #0d122b;
-  text-align: center;
-  position: fixed;
-  left: 0;
+  /* border-top: 1px solid #0d122b; */
+  text-align: right;
+  padding-left:30em;
+  padding-top:10px;
+  position: relative;
   bottom: 0;
   width: 100%;
   text-align: center;
-  height:25px;
+  height:5px;
 }
-
-
