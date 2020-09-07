@@ -50,22 +50,20 @@ References include:
 
 (A)IGO2College uses the wit.ai to better understand users query and provide them with reliable results.
 
-
-
 ## What's Next for us
 
 ### Some of our near-future plans
 
-[ ] Making the application more conversational
+- Making the application more conversational and personalised.
 
-[ ] Expanding our database with more universities, including liberal arts colleges and community colleges.
+- Expanding our database with more universities, including liberal arts colleges and community colleges.
 
-[ ] Adding information like what all majors are provided by the universities and offer a broader array of user specific solutions.
+- Adding information like what all majors are provided by the universities and offer a broader array of user specific solutions.
 
-[ ] Make an interactive dashboard for each user and give analysed results for what university they should apply to given their scores and achievements.
+- Make an interactive dashboard for each user and give analysed results for what university they should apply to given their scores and achievements.
 
-[ ] Choice to link account with third party apps like google calendar to set reminder for important dates.
+- Choice to link account with third party apps like google calendar to set reminder for important dates.
 
 ### Some of the not-so-near future plans
 
-[ ] Much of the college data wasn't that easily scrapable and not even search-able when we collected our data. Many universities don't keep their sites updated either. So we wish to kick-start this crowdsourced wikipedia-like information database so that people are more informed while applying to colleges.
+- Much of the college data wasn't that easily scrapable and not even search-able when we collected our data. Many universities don't keep their sites updated either. So we wish to kick-start this crowdsourced wikipedia-like information database so that people are more informed while applying to colleges.
