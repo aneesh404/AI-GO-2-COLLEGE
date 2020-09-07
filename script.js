@@ -105,14 +105,13 @@ function sendRequestToWit(data) {
 
 //######################################################################## dont mess with above code
 
-
-// $("#myinput").keypress(function(event) { 
-//   if (event.keyCode === 13) { 
-//       $("#myButt").click(); 
-//       handleInput();
-//   } 
-// }); 
-
+var input = document.getElementById("myinput");
+input.addEventListener("keydown", function(event) {
+  if (event.keyCode === 13) {
+    event.preventDefault();
+    document.getElementById("myButt").click();
+    }
+  });
 
 var myPix = ["Counselors/doggo1.jpg","Counselors/doggo2.jpg", "Counselors/doggo3.jpg","Counselors/not-doggo.jpg"];
 function choosePic(){
