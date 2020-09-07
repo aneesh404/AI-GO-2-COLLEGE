@@ -84,7 +84,7 @@ function sendRequestToWit(data) {
   const url = "https://api.wit.ai/message?q=";
   const params = {
     headers: {
-      Authorization: "Bearer JL3K6R6O42VYR5SXNRYFFBXYR2NSOY4R"
+      Authorization: "Bearer WB2W3C3J5YPVEAOA324DAMUGQL4XBO45"
     }
   };
 
@@ -95,8 +95,17 @@ function sendRequestToWit(data) {
 //######################################################################## dont mess with above code
 
 
-  window.onload = choosePic;
-  window.onload = checkCookie;
+var myPix = ["Counselors/doggo1.jpg","Counselors/doggo2.jpg", "Counselors/doggo3.jpg"];
+
+function choosePic(){
+  var randomNum = Math.floor(Math.random() * myPix.length);
+  console.log(randomNum)
+  document.getElementById("avatar").src = myPix[randomNum];
+}
+window.onload=function(){
+  choosePic();
+  checkCookie();
+  }
   var dataset = [];
   var begin = false;
   DataGenerator();
@@ -104,9 +113,10 @@ function sendRequestToWit(data) {
     includeScore:true
    }
 
-  const info = document.querySelector(".info");
-  var askables = ["Is <University Name> an ivy league?","Is sat required for <University Name>? ","when is the application due for <University Name>?","what GPA do I need to go to <University Name>?","Average SAT score for <University Name>?"];
-  info.textContent = 'Ask me something like: '+askables[Math.floor(Math.random() * (askables.length))];
+
+  // const info = document.querySelector(".info");
+  // var askables = ["Is <University Name> an ivy league?","Is sat required for <University Name>? ","when is the application due for <University Name>?","what GPA do I need to go to <University Name>?","Average SAT score for <University Name>?"];
+  // info.textContent = 'Ask me something like: '+askables[Math.floor(Math.random() * (askables.length))];
 
 //Data export from csv file
   function DataGenerator(){
@@ -301,12 +311,6 @@ function GiveEntryFromName(name){
   return -1;
 }
 
-var myPix = new Array("avatar_1.jpg","avatar_2.png", "avatar_3.png");
-function choosePic(){
-  var randomNum = Math.floor(Math.random() * myPix.length);
-  document.getElementById("avatar").src = myPix[randomNum];
-}
-
 function prettyList(data) {
   if (data.length > 1) {
     data.push(data[data.length - 1]);
@@ -320,7 +324,7 @@ function prettyList(data) {
 }
 
 //You deserve brownie points :)
-//By yours truely, Aneesh Chawla :D
+//By yours truely, Aneesh Chawla :Ds
 
 function setCookie(cname, cvalue, exdays) {
   var d = new Date();
@@ -364,23 +368,95 @@ function welcomeAgain(username){
   document.getElementById("reply").innerHTML = msg;
   let utterance = new SpeechSynthesisUtterance(msg);
   speechSynthesis.speak(utterance);
-  
 }
-
+var count = 0;
 function make_history(query) {
   var ul = document.getElementById("list");
   var li = document.createElement("li");
   li.appendChild(document.createTextNode(query));
   ul.appendChild(li);
+  count++;
+  if(count>=10){
+    ul.removeChild(ul.firstChild);
+  }
 }
 
 
 function Introduction(username){
-  const names = ["Bobby","Brighton","Charlie","Emory","Gale","Harper","Jordan","Nico","Phoenix"];
+  const names = ["Charlie"
+                  ,"Max"
+                  ,"Buddy"
+                  ,"Oscar"
+                  ,"Milo"
+                  ,"Archie"
+                  ,"Ollie"
+                  ,"Toby"
+                  ,"Jack"
+                  ,"Teddy"];
   const msg = "Hey There "+username+"! I am "+ names[Math.floor(Math.random() * (names.length))]+" and I'll be assisting you today.";
   document.getElementById("reply").innerHTML = msg;
   let utterance = new SpeechSynthesisUtterance(msg);
   speechSynthesis.speak(utterance);
+}
+
+
+//Yeah this is the shittiest part >>
+
+function RunSuggestion1() 
+{
+    const text =  document.getElementById("b1").textContent;
+    searchFormInput.value = text;
+    
+}
+function RunSuggestion2() 
+{
+    const text =  document.getElementById("b2").textContent;
+    searchFormInput.value = text;
+    
+}
+function RunSuggestion3() 
+{
+    const text =  document.getElementById("b3").textContent;
+    searchFormInput.value = text;
+    
+}
+function RunSuggestion4() 
+{
+    const text =  document.getElementById("b4").textContent;
+    searchFormInput.value = text;
+    
+}
+function RunSuggestion5() 
+{
+    const text =  document.getElementById("b5").textContent;
+    searchFormInput.value = text;
+    
+}
+function RunSuggestion6() 
+{
+    const text =  document.getElementById("b6").textContent;
+    searchFormInput.value = text;
+    
+}
+function RunSuggestion7() 
+{
+    const text =  document.getElementById("b7").textContent;
+    searchFormInput.value = text;
+    
+}
+function RunSuggestion8() 
+{
+    const text =  document.getElementById("b8").textContent;
+    searchFormInput.value = text;   
+}
+function RunSuggestion9() 
+{
+    const text =  document.getElementById("b9").textContent;
+    searchFormInput.value = text;
+    // $("#myButt").click();
+    // handleInput();
+
+    
 }
 
 function NotInList(data) {

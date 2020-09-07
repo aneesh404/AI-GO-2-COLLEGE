@@ -5,6 +5,7 @@
   padding-top: 10px;
   padding-left: 30px;
   font-size:15px;
+  text-align:center;
 }
 h1{
   font-family: 'Lora', serif !important;
@@ -14,12 +15,16 @@ h1{
 
 ul.no_bul {
   list-style-type: none;
+  padding:3px 3px 3px 3px;
 }
 
 .history{
+  background-color:#ced5d6;
+  padding-left:30px;
   text-align:center;
-  color:243447;
-  padding-top:10px;
+  border-top:    2px solid lightgray;
+  /* border-right:  2px solid lightgray;  */
+  border-bottom: 2px solid lightgray;
 }
 .avatar {
   vertical-align: middle;
@@ -42,14 +47,15 @@ ul.no_bul {
 
 html,body {
   /* background-image:url("/background.jpeg"); */
-  background-color:#243447;
-  min-height: 100vh;
+  background-color: lightblue;
+  min-height: 92vh;
   font-family: 'Lora', serif !important;
   margin: 2%;
   padding: 0;
 }
 .querybox{
   padding-top:2em;
+  padding-left:2em;
 }
 
 .assistant_image{
@@ -128,7 +134,8 @@ header {
 }
 
 .input-bar {
-  padding-top: 20px;
+  padding-top: 10px;
+  padding-left:15px;
   display: table;
   width: 100%;
 }
@@ -137,15 +144,24 @@ header {
   display: table-cell;
 }
 
+h3{
+  text-align:center;
+}
+
+
 .input-bar-item > button {
   padding-left:15px;
   margin-left: 5px;
 }
 
+/* .btn-suggestions{
+  padding-left:10px;
+  padding-right:10px;
+} */
+
 .btn-circle {
-  width: 80px;
-  height: 80px;
-  padding: 6px 0px;
+  /* width: 60px;
+  height: 60px; */
   border-radius: 15px;
   text-align: center;
   /* font-size: 12px; */
@@ -167,8 +183,8 @@ header {
   position: relative;
 }
 
-button:hover,
-button:focus {
+.sbutton:hover,
+.sbutton:focus {
   background-image: -webkit-linear-gradient(45deg, #709dff 50%, #b0c9ff 100%);
   background-image: linear-gradient(45deg, #709dff 50%, #b0c9ff 100%);
 }
@@ -189,4 +205,5 @@ footer {
   text-align: center;
   height:25px;
 }
+
 
