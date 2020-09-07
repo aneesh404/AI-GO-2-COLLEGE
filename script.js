@@ -143,30 +143,35 @@ window.onload=function(){
 
 //main function:
 function handleWitReply(data) {
-  if (data.intents.length == 0) {
+  if (Object.keys(data["intents"]).length == 0) {
     NotInList();
     return;
   }
   make_history(data.text);
-  switch (data.intents[0].name) {
-    case "Query":
-      if(search_entity(data,"collegetype")){
-        UniType(data);
-      }
-      else if(search_entity(data,"metric")){
-        handleMetric(data);
-      }
-      else if(search_entity(data,"Cost")){
-        handleFee(data);
-      }
-      else if (search_entity(data,"CollegeInfo")){
-      handleCollegeQuery(data);}
-      break
-    case "Greetings":
-      ReplyToGreetings(data);
-      break
-    default:
-      NotInList();
+  if(Object.keys(data["entities"]).length!=0){
+    switch (data.intents[0].name) {
+      case "Query":
+        if(search_entity(data,"collegetype")){
+          UniType(data);
+        }
+        else if(search_entity(data,"metric")){
+          handleMetric(data);
+        }
+        else if(search_entity(data,"Cost")){
+          handleFee(data);
+        }
+        else if (search_entity(data,"CollegeInfo")){
+        handleCollegeQuery(data);}
+        break
+      case "Greetings":
+        ReplyToGreetings(data);
+        break
+      default:
+        NotInList();
+    }
+  }
+  else{
+    NotInList();
   }
 }
 
