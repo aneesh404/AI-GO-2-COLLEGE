@@ -1,4 +1,5 @@
 // WebSpeech Configurations
+
 const searchForm = document.querySelector("#search-form");
 const searchFormInput = searchForm.querySelector("input");
 window.addEventListener("DOMContentLoaded", () => {
@@ -112,19 +113,6 @@ function sendRequestToWit(data) {
 //   } 
 // }); 
 
-$(document).ready(function(){
-  $('#myinput').keypress(function(e){
-    if(e.keyCode==13)
-    // $('#myButt').click();
-    handleInput();
-  });
-});
-
-
-
-$("#GFG_Button").click(function() { 
-  alert("Button clicked"); 
-}); 
 
 var myPix = ["Counselors/doggo1.jpg","Counselors/doggo2.jpg", "Counselors/doggo3.jpg"];
 function choosePic(){
@@ -434,7 +422,7 @@ function Introduction(username){
 function RunSuggestion1() 
 {
     const text =  document.getElementById("b1").textContent;
-    searchFormInput.value = text;
+    // searchFormInput.value = text;
     handleInput(text);       
 }
 function RunSuggestion2() 
