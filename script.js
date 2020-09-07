@@ -114,7 +114,7 @@ function sendRequestToWit(data) {
 // }); 
 
 
-var myPix = ["Counselors/doggo1.jpg","Counselors/doggo2.jpg", "Counselors/doggo3.jpg"];
+var myPix = ["Counselors/doggo1.jpg","Counselors/doggo2.jpg", "Counselors/doggo3.jpg","Counselors/doggo4.jpg","Counselors/doggo5.jpg","Counselors/not-doggo.jpg"];
 function choosePic(){
   var randomNum = Math.floor(Math.random() * myPix.length);
   document.getElementById("avatar").src = myPix[randomNum];
@@ -410,7 +410,7 @@ function Introduction(username){
                   ,"Toby"
                   ,"Jack"
                   ,"Teddy"];
-  const msg = "Hey There "+username+"! I am "+ names[Math.floor(Math.random() * (names.length))]+" and I'll be assisting you today.";
+  const msg = "Hey There "+username+"! I am "+ names[Math.floor(Math.random() * (names.length))]+" and I'll be helping you with your college application!";
   document.getElementById("reply").innerHTML = msg;
   let utterance = new SpeechSynthesisUtterance(msg);
   speechSynthesis.speak(utterance);

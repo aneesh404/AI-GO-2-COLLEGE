@@ -39,6 +39,8 @@ ul.no_bul {
   width: 100px;
   height:100px;
   border-radius: 50%;
+	border: 1px solid lightgray;
+
 }
 .img-fluid {
   max-width: 100%;
