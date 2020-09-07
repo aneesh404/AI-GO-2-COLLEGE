@@ -422,7 +422,7 @@ function Introduction(username){
 function RunSuggestion1() 
 {
     const text =  document.getElementById("b1").textContent;
-    // searchFormInput.value = text;
+    searchFormInput.value = text;
     handleInput(text);       
 }
 function RunSuggestion2() 
