@@ -114,7 +114,7 @@ function sendRequestToWit(data) {
 // }); 
 
 
-var myPix = ["Counselors/doggo1.jpg","Counselors/doggo2.jpg", "Counselors/doggo3.jpg","Counselors/doggo4.jpg","Counselors/doggo5.jpg","Counselors/not-doggo.jpg"];
+var myPix = ["Counselors/doggo1.jpg","Counselors/doggo2.jpg", "Counselors/doggo3.jpg","Counselors/not-doggo.jpg"];
 function choosePic(){
   var randomNum = Math.floor(Math.random() * myPix.length);
   document.getElementById("avatar").src = myPix[randomNum];
@@ -130,11 +130,6 @@ window.onload=function(){
     includeScore:true
    }
 
-
-  // const info = document.querySelector(".info");
-  // var askables = ["Is <University Name> an ivy league?","Is sat required for <University Name>? ","when is the application due for <University Name>?","what GPA do I need to go to <University Name>?","Average SAT score for <University Name>?"];
-  // info.textContent = 'Ask me something like: '+askables[Math.floor(Math.random() * (askables.length))];
-
 //Data export from csv file
   function DataGenerator(){
     d3.csv("Cdata.csv").then(function(Data){
@@ -149,7 +144,7 @@ window.onload=function(){
 //main function:
 function handleWitReply(data) {
   if (data.intents.length == 0) {
-    NotInList(data);
+    NotInList();
     return;
   }
   make_history(data.text);
@@ -171,7 +166,7 @@ function handleWitReply(data) {
       ReplyToGreetings(data);
       break
     default:
-      NotInList(data);
+      NotInList();
   }
 }
 
@@ -181,7 +176,7 @@ function UniType(data){
   let present = false;
   const name = extractUniName(data);
   if(name == 'false'){
-    setReply(`Not in list`);
+    setReply(`We currently dont have this university in our database. Please check back soon :)`)
   }
   const res = GiveEntryFromName(name);
   if(res!=-1){
@@ -195,7 +190,7 @@ function handleMetric(data){
   // var res = str.split(" "); 
   const name = extractUniName(data);
   if(name == 'false'){
-    setReply(`Not in list`);  //Todo: write a better exit point
+    setReply(`We currently dont have this university in our database. Please check back soon :)`)
     return;
   }
   const vals = GiveEntryFromName(name);
@@ -231,7 +226,7 @@ function handleFee(data){
   const name = extractUniName(data);
   // console.log("I'm in handleFee");
   if(name == 'false'){
-    setReply(`Not in list`);  //Todo: write a better exit point
+    setReply(`We currently dont have this university in our database. Please check back soon :)`)
     return;
   }
   const vals = GiveEntryFromName(name);
@@ -251,7 +246,7 @@ function handleCollegeQuery(data){
   // console.log('triggered handleCollegeQuery');
   const name = extractUniName(data);
   if(name == 'false'){
-    setReply(`Not in list`);  //Todo: write a better exit point
+    NotInList();
     return;
   }
   const vals = GiveEntryFromName(name);
@@ -276,12 +271,18 @@ function handleCollegeQuery(data){
 
 function ReplyToGreetings(data){
   // console.log('triggered reply2greetings'); debug
-  if(!begin){
-  setReply(`Hello! How can I help you today?`);
-  begin = true;
+  const command = data.entities["greeting:greeting"][0].value;
+  if(command == "bye"){
+    setReply('Hope I could help you with your queries. All the best with your college Application!');
   }
   else{
-    setReply('Hello! Was I able to solve your last query?');
+    if(!begin){
+    setReply(`Hello! How can I help you today?`);
+    begin = true;
+    }
+    else{
+      setReply('Hello! Was I able to solve your last query?');
+    }
   }
 }
 
@@ -311,7 +312,7 @@ function extractUniName(data){
   const fuse = new Fuse(getCol(dataset,0),options);
   const result = fuse.search(uni);
   // console.log(result);
-  if(result[0].score<0.6){
+  if(result[0].score<0.4){
     return result[0].item;
   }
   else{
@@ -341,7 +342,7 @@ function prettyList(data) {
 }
 
 //You deserve brownie points :)
-//By yours truely, Aneesh Chawla :Ds
+//By yours truely, Aneesh Chawla :D
 
 function setCookie(cname, cvalue, exdays) {
   var d = new Date();
@@ -416,6 +417,25 @@ function Introduction(username){
   speechSynthesis.speak(utterance);
 }
 
+function SearchGoogle(text){
+  setReply('I don\'t have an answer for that, but I called in a favor at Google and here\'s what they think')
+}
+
+
+// █▀▀▄░░░░░░░░░░░▄▀▀█
+// ░█░░░▀▄░▄▄▄▄▄░▄▀░░░█
+// ░░▀▄░░░▀░░░░░▀░░░▄▀
+// ░░░░▌░▄▄░░░▄▄░▐▀▀
+// ░░░▐░░█▄░░░▄█░░▌▄▄▀▀▀▀█  Enjoy an ASCII Pikachu!
+// ░░░▌▄▄▀▀░▄░▀▀▄▄▐░░░░░░█
+// ▄▀▀▐▀▀░▄▄▄▄▄░▀▀▌▄▄▄░░░█
+// █░░░▀▄░█░░░█░▄▀░░░░█▀▀▀
+// ░▀▄░░▀░░▀▀▀░░▀░░░▄█▀
+// ░░░█░░░░░░░░░░░▄▀▄░▀▄
+// ░░░█░░░░░░░░░▄▀█░░█░░█
+// ░░░█░░░░░░░░░░░█▄█░░▄▀
+// ░░░█░░░░░░░░░░░████▀
+// ░░░▀▄▄▀▀▄▄▀▀▄▄▄█▀
 
 //Yeah this is the shittiest part >>
 
@@ -475,7 +495,6 @@ function RunSuggestion9()
 }
 
 function NotInList(data) {
-  setReply(`Sorry, we're currently under construction`);
-    //todo
+  setReply(`Uh-no. One of our pupper-Awwssistants ate your query. Why don't you try out some of our demo queries listed below :)`);
 }
 

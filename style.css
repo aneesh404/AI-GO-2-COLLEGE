@@ -111,6 +111,7 @@ body {
   flex-direction: column;
   padding-left: 0.5em;
   padding-right: 0.5em;
+  overflow: hidden;
 }
 
 header {
