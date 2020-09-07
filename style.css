@@ -58,7 +58,7 @@ ul.no_bul {
 html,body {
   /* background-image:url("/background.jpeg"); */
   background-color: lightblue;
-  min-height: 92vh;
+  min-height: 90vh;
   font-family: 'Lora', serif !important;
   margin: 2%;
   padding: 0;
@@ -111,7 +111,7 @@ body {
   flex-direction: column;
   padding-left: 0.5em;
   padding-right: 0.5em;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 header {

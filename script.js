@@ -129,6 +129,7 @@ window.onload=function(){
     includeScore:true
    }
 
+
 //Data export from csv file
   function DataGenerator(){
     d3.csv("Cdata.csv").then(function(Data){
@@ -139,6 +140,8 @@ window.onload=function(){
 }
 
 //An ode to Free Online blogs and StackOverflow!!! 
+
+var answered = false;
 
 //main function:
 function handleWitReply(data) {
@@ -161,6 +164,7 @@ function handleWitReply(data) {
         }
         else if (search_entity(data,"CollegeInfo")){
         handleCollegeQuery(data);}
+        answered = true;
         break
       case "Greetings":
         ReplyToGreetings(data);
@@ -190,8 +194,6 @@ function UniType(data){
 
 function handleMetric(data){
   const res = data.entities["metric:metric"][0].value;
-  // const str_body = data.entities["metric:metric"][0].body;
-  // var res = str.split(" "); 
   const name = extractUniName(data);
   if(name == 'false'){
     setReply(`We currently dont have this university in our database. Please check back soon :)`)
@@ -224,7 +226,8 @@ function handleMetric(data){
 }
 
 //Whoa you came till here? thanks dude!
-
+//Feel free to tell me how ugly this code is
+//at aneeshchawla404@gmail.com
 
 function handleFee(data){
   const name = extractUniName(data);
@@ -284,7 +287,7 @@ function ReplyToGreetings(data){
     setReply(`Hello! How can I help you today?`);
     begin = true;
     }
-    else{
+    else if(begin && answered){
       setReply('Hello! Was I able to solve your last query?');
     }
   }
