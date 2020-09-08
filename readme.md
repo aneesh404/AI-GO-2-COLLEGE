@@ -8,7 +8,7 @@ It's not always easy to find a reliable college guidance counselor. As a result 
 
 ### What is (A)IGO2COLLEGE
 
-(A)IGO2COLLEGE (as in I-go-to-college) is web-application designed to help students stay on top of the college application process in the absence of a college guidance counselor. It answers general questions pertaining to academics, tuition and fees, college application requirements, etc.
+(A)IGO2COLLEGE (as in I-go-to-college) is a web-application designed to help students stay on top of the college application process in the absence of a college guidance counselor. It answers general questions pertaining to academics, tuition and fees, college application requirements, etc.
 
 ![UI](UI.png)
 We took a rather unconventional approach for the UI that's easy to navigate even for internet novice. We tried to follow Facebooks principles of inclusivity to ensure no one is left out.
