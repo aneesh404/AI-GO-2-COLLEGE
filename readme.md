@@ -1,5 +1,3 @@
-# (A)IGO2COLLEGE
-
 ![Logo](assets/Title.jpg)
 
 ## Inspiration

@@ -174,7 +174,7 @@ function handleWitReply(data) {
 }
 //An ode to Free Online blogs and StackOverflow!!! 
 
-//gives whether ivy/private/public {fuzzystring incorporated}
+//gives whether ivy/private/public {fuzzy string matching incorporated}
 function UniType(data){
   let present = false;
   const name = extractUniName(data);
