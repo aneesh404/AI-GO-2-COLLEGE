@@ -5,7 +5,6 @@ const searchFormInput = searchForm.querySelector("input");
 window.addEventListener("DOMContentLoaded", () => {
   const button = document.getElementById("button");
   const result = document.getElementById("result");
-  // const main = document.getElementsByTagName("main")[0];
   let listening = false;
   const SpeechRecognition =
     window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -34,7 +33,6 @@ window.addEventListener("DOMContentLoaded", () => {
     recognition.onsoundend = function(event) {
       stop();
       handleInput(searchFormInput.value);
-      console.log('SpeechRecognition.onsoundend');
   }
 
   
@@ -62,11 +60,7 @@ function handleInput(input) {
   if (input == "") {
     return;
   }
-
-  // setReply("...");
-  // setJsonData("...");
   sendRequestToWit(input).then(data => {
-    // setJsonData(data);
     handleWitReply(data);
   });
 }
@@ -91,16 +85,9 @@ function ListUniversities(){
 }
 
 // Whoa a life form? I never thought a human will read my code :()
-
-//DEBUG
-// function setJsonData(data) {
-//   document.getElementById("data").innerHTML =
-//     "<pre>" + JSON.stringify(data, null, 4) + "</pre>";
-// }
-
 // Wit.ai connections
 
-function sendRequestToWit(data) {
+async function sendRequestToWit(data) {
   const url = "https://api.wit.ai/message?q=";
   const params = {
     headers: {
@@ -109,7 +96,8 @@ function sendRequestToWit(data) {
   };
 
   var fullRequest = url + data;
-  return fetch(fullRequest, params).then(response => response.json());
+  const response = await fetch(fullRequest, params);
+  return await response.json();
 }
 
 //######################################################################## dont mess with above code
@@ -146,8 +134,6 @@ window.onload=function(){
       }
   });
 }
-
-//An ode to Free Online blogs and StackOverflow!!! 
 
 var answered = false;
 
@@ -186,10 +172,10 @@ function handleWitReply(data) {
     NotInList();
   }
 }
+//An ode to Free Online blogs and StackOverflow!!! 
 
 //gives whether ivy/private/public {fuzzystring incorporated}
 function UniType(data){
-  // console.log('trigged UniType');  debug
   let present = false;
   const name = extractUniName(data);
   if(name == 'false'){
@@ -210,7 +196,6 @@ function handleMetric(data){
   }
   const vals = GiveEntryFromName(name);
   let command = res.toLowerCase();
-  // console.log(command);
   if(command == 'average_gpa'){
     setReply(`${name} requires around ${vals[10]} GPA.`);
     
@@ -235,18 +220,16 @@ function handleMetric(data){
 }
 
 //Whoa you came till here? thanks dude!
-//Feel free to tell me how ugly this code is
-//at aneeshchawla404@gmail.com
+//Feel free to tell me what I can improve
+// in this code at aneeshchawla404@gmail.com
 
 function handleFee(data){
   const name = extractUniName(data);
-  // console.log("I'm in handleFee");
   if(name == 'false'){
     setReply(`We currently dont have this university in our database. Please check back soon :)`)
     return;
   }
   const vals = GiveEntryFromName(name);
-  // console.log(name,vals);
   if(vals[4] !=""){
     setReply(`It costs $${vals[4]} to attend ${name}.`);
   }
@@ -262,7 +245,6 @@ function handleFee(data){
 }
 
 function handleCollegeQuery(data){
-  // console.log('triggered handleCollegeQuery');
   const name = extractUniName(data);
   if(name == 'false'){
     NotInList();
@@ -289,7 +271,6 @@ function handleCollegeQuery(data){
 
 
 function ReplyToGreetings(data){
-  // console.log('triggered reply2greetings'); debug
   const command = data.entities["greeting:greeting"][0].value;
   if(command == "bye"){
     setReply('Hope I could help you with your queries. All the best with your college Application!');
@@ -317,7 +298,6 @@ function getCol(matrix, col){
 //checks whether the given key matches the entity
 function search_entity(data,key){
 const search_k = key+':'+key;
-// console.log('in func search entity'); debug
 for(const entity in data.entities){
   if(entity == search_k){
     return true;
@@ -330,7 +310,6 @@ function extractUniName(data){
   const uni = data.entities["Uni_Name:Uni_Name"][0].value;
   const fuse = new Fuse(getCol(dataset,0),options);
   const result = fuse.search(uni);
-  // console.log(result);
   if(result[0].score<0.4){
     return result[0].item;
   }
@@ -390,7 +369,6 @@ function checkCookie() {
   var username = getCookie("username");
   if (username != "") {
     welcomeAgain(username);
-  //  alert("Welcome again " + username);
   } else {
     username = prompt("Please enter your name:", "");
     if (username != "" && username != null) {
