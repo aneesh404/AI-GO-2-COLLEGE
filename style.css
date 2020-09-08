@@ -30,7 +30,8 @@ ul.no_bul {
   background-color:#ced5d6;
   padding-left:30px;
   text-align:center;
-  border-top:    2px solid lightgray;
+  border-radius:.4em;
+  border-top: 2px solid lightgray;
   /* border-right:  2px solid lightgray;  */
   border-bottom: 2px solid lightgray;
 }
@@ -143,6 +144,31 @@ header {
   cursor: pointer;
   color: #333;
 }
+
+#button.speaking {
+  background: rgba(255, 82, 82, 1);
+  box-shadow: 0 0 0 0 rgba(255, 82, 82, 1);
+  animation: pulse-red 1.5s infinite;
+}
+
+
+@keyframes pulse-red {
+  0% {
+      transform: scale(0.95);
+      box-shadow: 0 0 0 0 rgba(255, 82, 82, 0.7);
+  }
+  
+  70% {
+      transform: scale(1);
+      box-shadow: 0 0 0 10px rgba(255, 82, 82, 0);
+  }
+  
+  100% {
+      transform: scale(0.95);
+      box-shadow: 0 0 0 0 rgba(255, 82, 82, 0);
+  }
+}
+
 
 .input-bar {
   padding-top: 20px;

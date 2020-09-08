@@ -1,6 +1,6 @@
 # (A)IGO2COLLEGE
 
-![Logo](Title.jpg)
+![Logo](assets/Title.jpg)
 
 ## Inspiration
 
@@ -10,7 +10,7 @@ It's not always easy to find a reliable college guidance counselor. As a result 
 
 (A)IGO2COLLEGE (as in I-go-to-college) is a web-application designed to help students stay on top of the college application process in the absence of a college guidance counselor. It answers general questions pertaining to academics, tuition and fees, college application requirements, etc.
 
-![UI](UI.png)
+![UI](assets/UI.png)
 We took a rather unconventional approach for the UI that's easy to navigate even for internet novice. We tried to follow Facebooks principles of inclusivity to ensure no one is left out.
 
 <!-- ## Quick Start
@@ -46,10 +46,11 @@ References include:
 
 - <https://www.usnews.com/education/best-global-universities/rankings?int=a27a09>
 
-## Model
+## Technology
 
 (A)IGO2College uses the wit.ai to better understand users query and provide them with reliable results.
 
+We also use Fuzzy string matching as a last resort if  User get the University a letter wrong here or there.
 ## What's Next for us
 
 ### Some of our near-future plans

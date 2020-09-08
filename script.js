@@ -5,7 +5,7 @@ const searchFormInput = searchForm.querySelector("input");
 window.addEventListener("DOMContentLoaded", () => {
   const button = document.getElementById("button");
   const result = document.getElementById("result");
-  const main = document.getElementsByTagName("main")[0];
+  // const main = document.getElementsByTagName("main")[0];
   let listening = false;
   const SpeechRecognition =
     window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -13,15 +13,14 @@ window.addEventListener("DOMContentLoaded", () => {
     const recognition = new SpeechRecognition();
 
     const stop = () => {
-      main.classList.remove("speaking");
+      button.classList.remove("speaking");
+      button.click();
       recognition.stop();
-      button.textContent = "Start";
     };
 
     const start = () => {
-      main.classList.add("speaking"); 
+      button.classList.add("speaking"); 
       recognition.start();
-      button.textContent = "Stop";
     };
     
     const onResult = event => {
@@ -29,13 +28,22 @@ window.addEventListener("DOMContentLoaded", () => {
       const transcript = event.results[curr][0].transcript;
       searchFormInput.value = transcript;
     };
-    recognition.continuous = true;
+    recognition.continuous = false;
     recognition.interimResults = true;
+
+    recognition.onsoundend = function(event) {
+      stop();
+      handleInput(searchFormInput.value);
+      console.log('SpeechRecognition.onsoundend');
+  }
+
+  
     recognition.addEventListener("result", onResult);
     button.addEventListener("click", event => {
       listening ? stop() : start();
       listening = !listening;
     });
+
   } else {
     button.remove();
     const message = document.getElementById("message");
@@ -70,6 +78,8 @@ function setReply(str) {
   let utterance = new SpeechSynthesisUtterance(str);
   speechSynthesis.speak(utterance);
 }
+
+
 function ListUniversities(){
   var ul = document.getElementById("uni_list");
   var li = document.createElement("li");
@@ -79,7 +89,6 @@ function ListUniversities(){
     ul.appendChild(li);
   }
 }
-
 
 // Whoa a life form? I never thought a human will read my code :()
 
@@ -129,7 +138,6 @@ window.onload=function(){
     includeScore:true
    }
 
-
 //Data export from csv file
   function DataGenerator(){
     d3.csv("Cdata.csv").then(function(Data){
@@ -145,10 +153,10 @@ var answered = false;
 
 //main function:
 function handleWitReply(data) {
-  if (Object.keys(data["intents"]).length == 0) {
-    NotInList();
-    return;
-  }
+  // if (Object.keys(data["intents"]).length == 0) {
+  //   NotInList();
+  //   return;
+  // }
   make_history(data.text);
   if(Object.keys(data["entities"]).length!=0){
     switch (data.intents[0].name) {
@@ -171,6 +179,7 @@ function handleWitReply(data) {
         break
       default:
         NotInList();
+        break;
     }
   }
   else{
@@ -203,25 +212,25 @@ function handleMetric(data){
   let command = res.toLowerCase();
   // console.log(command);
   if(command == 'average_gpa'){
-    setReply(`${name} requires around ${vals[10]} GPA`);
+    setReply(`${name} requires around ${vals[10]} GPA.`);
     
   }
   else if(command == 'acceptance rate'){
-    setReply(`${name} takes in about ${vals[3]}% people who apply`);
+    setReply(`${name} takes in about ${vals[3]}% people who apply.`);
     
   }
   else if(command == "average_act"){
-    setReply(`For ${name}, the Average ACT score is ${vals[16]}`);
+    setReply(`For ${name}, the Average ACT score is ${vals[16]}.`);
     
   }
   else if(command == "average_sat"){
-    setReply(`For ${name}, the Average SAT score is ${vals[14]}`);
+    setReply(`For ${name}, the Average SAT score is ${vals[14]}.`);
   }
   else if(command == "sat_required"){
-    setReply(`For ${name}, SAT is ${vals[13]}`);
+    setReply(`For ${name}, SAT is ${vals[13]}.`);
   }
   else if(command == "act required" ){
-    setReply(`For ${name}, ACT is ${vals[15]}`);
+    setReply(`For ${name}, ACT is ${vals[15]}.`);
   }
 }
 
@@ -239,13 +248,16 @@ function handleFee(data){
   const vals = GiveEntryFromName(name);
   // console.log(name,vals);
   if(vals[4] !=""){
-    setReply(`It costs $${vals[4]} to attend ${name}`);
+    setReply(`It costs $${vals[4]} to attend ${name}.`);
   }
   else{
+    setReply(`For ${name} it costs:`)
     let s1 = vals[5],s2 = vals[6],s3 = vals[7];
-    
-    let str = "International = "+ s1+ " </br> Out Of State = "+s2+"  </br>  In state  = "+s3;
-    setReply(`${str}`); 
+    s1 == "" ?s1 = "undisclosed" :s1 = '$'+s1;
+    s2 = "" ?"undisclosed" : s2= '$'+s2;
+    s3 = "" ?"undisclosed" : s3 = '$'+s3;
+    let str = "International Students = "+ s1+ " </br> Out Of State Students = "+s2+"  </br>  In state Students  = "+s3;
+    setReply(`For ${name} it costs: </br> ${str}`); 
   }
 }
 
@@ -271,7 +283,7 @@ function handleCollegeQuery(data){
     setReply(`${name} is ranked ${vals[11]} in the global rankings.`);
   }
   else if(command == 'Location'){
-    setReply(`${name} is located in ${vals[12]}`);
+    setReply(`${name} is located in ${vals[12]}.`);
   }
 }
 
@@ -502,6 +514,7 @@ function RunSuggestion9()
 }
 
 function NotInList(data) {
-  setReply(`Uh-no. One of our pupper-Awwssistants ate your query. Why don't you try out some of our demo queries listed below :)`);
+  setReply(`Uh-no. One of our pupper-Awwssistants ate your query. Why don't you try out some of our demo queries listed below.`);
+  return;
 }
 
